@@ -54,7 +54,11 @@ async function displayPreprintDetails() {
     document.getElementById('preprint-authors').innerHTML = 'Authors: ' + authors;
 
     document.getElementById('preprint-keywords').textContent = 'Keywords: ' + preprint.attributes.tags.join(', ');
-    document.getElementById('preprint-categories').textContent = 'Categories: ' + preprint.attributes.subjects.map(s => s.text).join(', ');
+
+    // Map the subjects to display their text
+    const disciplines = preprint.attributes.subjects.map(subject => subject.text).join(', ');
+    document.getElementById('preprint-categories').textContent = 'Disciplines: ' + disciplines;
+
     document.getElementById('preprint-abstract').textContent = preprint.attributes.description;
 
     if (preprint.primary_file) {
