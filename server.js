@@ -14,7 +14,16 @@ app.use((req, res, next) => {
 app.get('/preprints', async (req, res) => {
     try {
         const response = await axios.get('https://api.osf.io/v2/preprints/?page[size]=10&sort=-date_created');
-        res.json(response.data);
+        const preprints = response.data.data;
+
+        // Fetch contributors for each preprint
+        const preprintsWithContributors = await Promise.all(preprints.map(async preprint => {
+            const contributorsResponse = await axios.get(preprint.relationships.contributors.links.related.href);
+            preprint.contributors = contributorsResponse.data.data;
+            return preprint;
+        }));
+
+        res.json(preprintsWithContributors);
     } catch (error) {
         res.status(500).send(error.toString());
     }

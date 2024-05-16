@@ -1,11 +1,10 @@
-// script.js
 const PROXY_URL = 'http://localhost:3000';
 const OSF_API_URL = `${PROXY_URL}/preprints`;
 
 async function fetchLatestPreprints() {
     const response = await fetch(OSF_API_URL);
     const data = await response.json();
-    return data.data;
+    return data;
 }
 
 async function displayLatestPreprints() {
@@ -14,10 +13,20 @@ async function displayLatestPreprints() {
 
     preprints.forEach(preprint => {
         const li = document.createElement('li');
-        const a = document.createElement('a');
-        a.href = `preprint.html?id=${preprint.id}`;
-        a.textContent = preprint.attributes.title;
-        li.appendChild(a);
+
+        const title = document.createElement('a');
+        title.href = `preprint.html?id=${preprint.id}`;
+        title.textContent = preprint.attributes.title;
+
+        const contributors = document.createElement('div');
+        contributors.innerHTML = preprint.contributors.map(contributor => {
+            const lastName = contributor.embeds.users.data.attributes.family_name;
+            const profileUrl = `https://osf.io/${contributor.embeds.users.data.id}/`;
+            return `<a href="${profileUrl}" target="_blank">${lastName}</a>`;
+        }).join(', ');
+
+        li.appendChild(title);
+        li.appendChild(contributors);
         preprintsList.appendChild(li);
     });
 }
