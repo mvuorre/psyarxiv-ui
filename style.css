@@ -1,0 +1,72 @@
+body {
+  font-family: Verdana, Geneva, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f6f6ef;
+  color: #333;
+}
+
+.navbar {
+  background-color: #ff6600;
+  padding: 2px 8px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar-brand {
+  color: white;
+  margin-right: 10px;
+}
+
+.navbar-about {
+  color: white;
+}
+
+.container {
+  width: 85%;
+  margin: 20px auto;
+}
+
+h1 {
+  font-size: 1.5em;
+  color: #333;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin: 10px 0;
+}
+
+a {
+  text-decoration: none;
+  color: #0056b3;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.preprint-link {
+  font-size: 14px;
+}
+
+.contributors {
+  font-size: 12px;
+  color: #828282;
+}
+
+.preprint-link + .contributors {
+  margin-left: 15px;
+}

@@ -1,0 +1,12 @@
+{
+  "name": "psyarxiv-ui",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server.js",
+    "deploy": "gh-pages -d ."
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1"
+  }
+}

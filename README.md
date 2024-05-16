@@ -1,0 +1,1 @@
+Alternative UI to [PsyArXiv](https://osf.io/preprints/psyarxiv). Early alpha and possibly abandoned. Created with artificial intelligence tools--don't ask me how it works.
