@@ -17,8 +17,10 @@ async function displayLatestPreprints() {
         const title = document.createElement('a');
         title.href = `preprint.html?id=${preprint.id}`;
         title.textContent = preprint.attributes.title;
+        title.className = 'preprint-link';
 
-        const contributors = document.createElement('div');
+        const contributors = document.createElement('span');
+        contributors.className = 'contributors';
         contributors.innerHTML = preprint.contributors.map(contributor => {
             const lastName = contributor.embeds.users.data.attributes.family_name;
             const profileUrl = `https://osf.io/${contributor.embeds.users.data.id}/`;
@@ -55,7 +57,6 @@ async function displayPreprintDetails() {
     document.getElementById('preprint-categories').textContent = 'Categories: ' + preprint.attributes.subjects.map(s => s.text).join(', ');
     document.getElementById('preprint-abstract').textContent = preprint.attributes.description;
 
-    // Use primary file link from server response
     if (preprint.primary_file) {
         document.getElementById('preprint-download').href = preprint.primary_file.links.download;
     } else {

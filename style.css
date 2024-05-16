@@ -1,13 +1,31 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: Verdana, Geneva, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f6f6ef;
+  color: #333;
+}
+
+.navbar {
+  background-color: #ff6600;
+  padding: 2px 8px;
+  font-size: 14px;
+}
+
+.navbar a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar-brand {
+  color: white;
+  margin-right: 10px;
 }
 
 .container {
   width: 85%;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
 h1 {
@@ -21,7 +39,7 @@ ul {
 }
 
 li {
-  margin: 0.5em 0;
+  margin: 10px 0;
 }
 
 a {
@@ -31,4 +49,17 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+.preprint-link {
+  font-size: 14px;
+}
+
+.contributors {
+  font-size: 12px;
+  color: #828282;
+}
+
+.preprint-link + .contributors {
+  margin-left: 15px;
 }
