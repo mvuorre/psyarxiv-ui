@@ -1,0 +1,27 @@
+# Node.js dependencies
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific files
+.DS_Store
+
+# Environment variables
+.env
+
+# Local server files
+__pycache__/
+
+# IDE specific files
+.vscode/
+.idea/
+*.swp
+
+# Temporary files
+tmp/
+temp/
