@@ -10,9 +10,6 @@ body {
   background-color: #ff6600;
   padding: 2px 8px;
   font-size: 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .navbar a {
@@ -59,14 +56,17 @@ a:hover {
 }
 
 .preprint-link {
-  font-size: 14px;
+  font-size: 1.2em;
 }
 
 .contributors {
-  font-size: 12px;
-  color: #828282;
+  display: block;
+  font-size: 0.9em;
+  color: #555;
 }
 
-.preprint-link + .contributors {
-  margin-left: 15px;
+.meta-info {
+  display: block;
+  font-size: 0.8em;
+  color: #888;
 }
