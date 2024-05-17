@@ -1,22 +1,18 @@
 const express = require('express');
 const axios = require('axios');
+const path = require('path');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-// Enable CORS for all routes
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-});
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Proxy endpoint for fetching preprints
-app.get('/preprints', async (req, res) => {
+app.get('/api/preprints', async (req, res) => {
     try {
         const response = await axios.get('https://api.osf.io/v2/preprints/?page[size]=10&sort=-date_created');
+        console.log('Preprints API response:', response.data);
         const preprints = response.data.data;
 
-        // Fetch contributors for each preprint
         const preprintsWithContributors = await Promise.all(preprints.map(async preprint => {
             const contributorsResponse = await axios.get(preprint.relationships.contributors.links.related.href);
             preprint.contributors = contributorsResponse.data.data;
@@ -25,31 +21,46 @@ app.get('/preprints', async (req, res) => {
 
         res.json(preprintsWithContributors);
     } catch (error) {
+        console.error('Error in /api/preprints:', error);
         res.status(500).send(error.toString());
     }
 });
 
-// Proxy endpoint for fetching preprint details
-app.get('/preprints/:id', async (req, res) => {
+app.get('/api/preprints/:id', async (req, res) => {
     try {
         const response = await axios.get(`https://api.osf.io/v2/preprints/${req.params.id}/`);
+        console.log('Preprint details API response:', response.data);
         const preprint = response.data.data;
 
-        // Fetch contributors for the preprint
         const contributorsResponse = await axios.get(preprint.relationships.contributors.links.related.href);
         preprint.contributors = contributorsResponse.data.data;
 
-        // Fetch primary file link
         const primaryFileLink = preprint.relationships.primary_file.links.related.href;
         const primaryFileResponse = await axios.get(primaryFileLink);
         preprint.primary_file = primaryFileResponse.data.data;
 
         res.json(preprint);
     } catch (error) {
+        console.error('Error in /api/preprints/:id:', error);
         res.status(500).send(error.toString());
     }
+});
+
+// Serve the HTML files for the routes
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/preprint.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'preprint.html'));
+});
+
+app.get('/about.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'about.html'));
 });
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+module.exports = app;
