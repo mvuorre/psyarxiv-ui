@@ -98,3 +98,17 @@ a:hover {
   font-size: 0.8em;
   color: #848484;
 }
+
+#osf-links {
+  margin-bottom: 16px;
+}
+
+#preprint-abstract {
+  margin: 12px auto;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 1.6em;
+  font-weight: 600;
+}

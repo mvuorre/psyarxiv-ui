@@ -2,12 +2,9 @@ async function fetchPreprints(startDate, endDate, filterType) {
     try {
         const response = await fetch(`/api/preprints?startDate=${startDate}&endDate=${endDate}&filterType=${filterType}`);
         const text = await response.text();
-        console.log('Raw response text:', text); // Log raw response text
         const data = JSON.parse(text);
-        console.log('Parsed data:', data); // Log parsed data
         return data && data.data ? data.data : []; // Ensure it returns an array
     } catch (error) {
-        console.error('Error fetching preprints:', error);
         return []; // Return an empty array in case of error
     }
 }
@@ -23,12 +20,10 @@ async function displayPreprints(startDate, endDate, filterType) {
     if (Array.isArray(preprints) && preprints.length > 0) {
         preprints.forEach(preprint => {
             const li = document.createElement('li');
-            
             const title = document.createElement('a');
             title.href = `preprint.html?id=${preprint.id}`;
             title.textContent = preprint.attributes.title;
             title.className = 'preprint-link';
-            
             const contributors = document.createElement('div');
             contributors.className = 'contributors';
             const dateField = filterType === 'date_modified' ? preprint.attributes.date_modified : preprint.attributes.date_created;
@@ -38,7 +33,6 @@ async function displayPreprints(startDate, endDate, filterType) {
                 const profileUrl = `https://osf.io/${contributor.embeds.users.data.id}/`;
                 return `<a href="${profileUrl}" target="_blank">${fullName}</a>`;
             }).join(', ');
-            
             li.appendChild(title);
             li.appendChild(contributors);
             preprintsList.appendChild(li);
@@ -52,12 +46,9 @@ async function fetchPreprintDetails(id) {
     try {
         const response = await fetch(`/api/preprints/${id}`);
         const text = await response.text();
-        console.log('Raw response text:', text); // Log raw response text
         const data = JSON.parse(text);
-        console.log('Parsed data:', data); // Log parsed data
         return data;
     } catch (error) {
-        console.error('Error fetching preprint details:', error);
         return null; // Return null in case of error
     }
 }
@@ -78,9 +69,6 @@ async function displayPreprintDetails() {
         document.getElementById('preprint-authors').innerHTML = 'Authors: ' + authors;
         
         document.getElementById('preprint-keywords').textContent = 'Keywords: ' + preprint.attributes.tags.join(', ');
-        
-        const disciplines = preprint.attributes.subjects.map(subject => subject.text).join(', ');
-        document.getElementById('preprint-categories').textContent = 'Disciplines: ' + disciplines;
         
         document.getElementById('preprint-abstract').textContent = preprint.attributes.description;
         
