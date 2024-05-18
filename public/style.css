@@ -10,24 +10,41 @@ body {
 }
 
 .navbar {
-  margin-top: 12px;
   width: 100%;
   max-width: 800px;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  color: black;
   background-color: #ff6600;
   padding: 10px;
   box-sizing: border-box;
 }
 
-.navbar a {
-  text-decoration: none;
+.navbar-left {
+  display: flex;
+  align-items: center;
 }
 
-.navbar-brand {
-  justify-self: start;
+.navbar-filters {
+  display: flex;
+  margin-left: 20px;
+}
+
+.navbar-filter-group {
+  margin-right: 20px;
+}
+
+.navbar-filter-group span {
+  margin-right: 5px;
+}
+
+.navbar-filter-group a {
+  color: white;
+  margin: 0 3px;
+}
+
+.navbar-filter-group a:hover {
+  text-decoration: underline;
 }
 
 .navbar-about {
@@ -40,6 +57,11 @@ body {
   background-color: #f6f6ef;
   padding: 12px;
   box-sizing: border-box;
+}
+
+.date-range-text {
+  margin-bottom: 20px;
+  font-weight: bold;
 }
 
 ul {
