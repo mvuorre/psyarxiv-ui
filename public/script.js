@@ -18,7 +18,7 @@ async function displayPreprints(startDate, endDate, filterType) {
     preprintsList.innerHTML = ''; // Clear the list before displaying new results
     
     const dateRangeText = document.getElementById('date-range-text');
-    dateRangeText.textContent = `Most recently ${filterType === 'date_created' ? 'submitted preprints' : 'edited preprints'} from ${startDate} to ${endDate}`;
+    dateRangeText.textContent = `(Most recently ${filterType === 'date_created' ? 'submitted preprints' : 'edited preprints'} from ${startDate} to ${endDate})`;
     
     if (Array.isArray(preprints) && preprints.length > 0) {
         preprints.forEach(preprint => {

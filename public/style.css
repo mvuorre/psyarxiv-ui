@@ -11,7 +11,7 @@ body {
 
 .navbar {
   width: 100%;
-  max-width: 800px;
+  max-width: 1200px;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
@@ -20,27 +20,28 @@ body {
   box-sizing: border-box;
 }
 
-.navbar-left {
+.navbar-brand {
   display: flex;
+  font-weight: bold;
   align-items: center;
 }
 
 .navbar-filters {
   display: flex;
-  margin-left: 20px;
+  margin-left: 0px;
 }
 
 .navbar-filter-group {
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .navbar-filter-group span {
-  margin-right: 5px;
+  margin-right: 0px;
+  margin-left: 20px;
 }
 
 .navbar-filter-group a {
-  color: white;
-  margin: 0 3px;
+  margin: 0 0px;
 }
 
 .navbar-filter-group a:hover {
@@ -53,7 +54,7 @@ body {
 
 .container {
   width: 100%;
-  max-width: 800px;
+  max-width: 1200px;
   background-color: #f6f6ef;
   padding: 12px;
   box-sizing: border-box;
@@ -61,7 +62,7 @@ body {
 
 .date-range-text {
   margin-bottom: 20px;
-  font-weight: bold;
+  color: #848484;
 }
 
 ul {
