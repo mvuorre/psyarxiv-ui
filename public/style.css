@@ -24,6 +24,7 @@ body {
   display: flex;
   font-weight: bold;
   align-items: center;
+  margin-right: 20px;
 }
 
 .navbar-filters {
@@ -37,7 +38,6 @@ body {
 
 .navbar-filter-group span {
   margin-right: 0px;
-  margin-left: 20px;
 }
 
 .navbar-filter-group a {
