@@ -1,5 +1,7 @@
 Alternative UI to [PsyArXiv](https://osf.io/preprints/psyarxiv). Early alpha and possibly abandoned. 
 
+**Currently not hosted anywhere as I'm looking for a decent/easy provider with HTTPS.**
+
 ## Local Development Setup
 
 ### Prerequisites
