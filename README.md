@@ -1,34 +1,59 @@
-Alternative UI to [PsyArXiv](https://osf.io/preprints/psyarxiv). Early alpha and possibly abandoned. 
+# PsyArXiv UI
 
-**Currently not hosted anywhere as I'm looking for a decent/easy provider with HTTPS.**
+Experimental alternative UI to [PsyArXiv](https://osf.io/preprints/psyarxiv).
 
 ## Local Development Setup
 
 ### Prerequisites
 
-1. **Node.js and npm**: Ensure you have Node.js and npm installed on your machine. You can download them from [Node.js](https://nodejs.org/).
-2. **Git**: Ensure you have Git installed. You can download it from [Git](https://git-scm.com/).
+1. **Node.js and npm**: Ensure you have Node.js and npm installed. Download from [Node.js](https://nodejs.org/).
+2. **Git**: Ensure you have Git installed. Download from [Git](https://git-scm.com/).
 
-### Instructions
+### Development Instructions
 
-1. **Clone the Repository**: Clone the project repository from GitHub.
-
+1. **Clone the Repository**:
 ```sh
 git clone https://github.com/mvuorre/psyarxiv-ui.git
 cd psyarxiv-ui
 ```
 
-2. **Install Dependencies**: Install the necessary npm packages.
-
+2. **Install Dependencies**:
 ```sh
 npm install
 ```
 
-3. **Start the Server**: Run the application locally.
-
+3. **Start Development Server**:
 ```sh
 node server.js
 ```
 
-4. **Open Your Browser**: Open your browser and navigate to `http://localhost:3000` to see the application running.
+4. **View Application**: Open `http://localhost:3000` in your browser.
 
+## Production Deployment
+
+### Prerequisites
+
+1. Install PM2 globally:
+```sh
+sudo npm install -g pm2
+```
+
+### Deployment Instructions
+
+1. **Start Application**:
+```sh
+pm2 start server.js --name psyarxiv
+```
+
+2. **Configure Auto-start** (replace USERNAME with your system username):
+```sh
+sudo pm2 startup ubuntu -u USERNAME
+sudo pm2 save
+```
+
+### PM2 Management Commands
+
+- View status: `pm2 status`
+- View logs: `pm2 logs`
+- Restart application: `pm2 restart psyarxiv`
+- Stop application: `pm2 stop psyarxiv`
