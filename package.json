@@ -11,6 +11,7 @@
   "description": "Experimental alternative UI to PsyArXiv",
   "dependencies": {
     "axios": "^1.6.8",
+    "dotenv": "^16.4.7",
     "express": "^4.19.2"
   }
 }

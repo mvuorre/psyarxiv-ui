@@ -48,7 +48,7 @@ pm2 start server.js --name psyarxiv
 2. **Configure Auto-start** (replace USERNAME with your system username):
 ```sh
 sudo pm2 startup ubuntu -u USERNAME
-sudo pm2 save
+pm2 save
 ```
 
 ### PM2 Management Commands

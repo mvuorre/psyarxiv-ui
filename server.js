@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const path = require('path');
 const app = express();
+require('dotenv').config();
 const PORT = process.env.PORT || 3000;
 
 // Serve static files from the public directory
