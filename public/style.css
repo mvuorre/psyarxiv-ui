@@ -112,3 +112,14 @@ h1 {
   font-size: 1.6em;
   font-weight: 600;
 }
+
+.loading, .no-results, .error {
+  font-style: italic;
+  color: #848484;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.error {
+  color: #cc6666;
+}

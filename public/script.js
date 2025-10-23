@@ -10,11 +10,16 @@ async function fetchPreprints(startDate, endDate, filterType) {
 }
 
 async function displayPreprints(startDate, endDate, filterType) {
-    const preprints = await fetchPreprints(startDate, endDate, filterType);
     const preprintsList = document.getElementById('preprints-list');
-    preprintsList.innerHTML = ''; // Clear the list before displaying new results
-    
     const dateRangeText = document.getElementById('date-range-text');
+    
+    // Show loading state
+    preprintsList.innerHTML = '<li class="loading">Loading preprints...</li>';
+    dateRangeText.textContent = `Loading ${filterType === 'date_created' ? 'submitted preprints' : 'edited preprints'} from ${startDate} to ${endDate}...`;
+    
+    const preprints = await fetchPreprints(startDate, endDate, filterType);
+    preprintsList.innerHTML = ''; // Clear loading message
+    
     dateRangeText.textContent = `(Most recently ${filterType === 'date_created' ? 'submitted preprints' : 'edited preprints'} from ${startDate} to ${endDate})`;
     
     if (Array.isArray(preprints) && preprints.length > 0) {
@@ -37,8 +42,10 @@ async function displayPreprints(startDate, endDate, filterType) {
             li.appendChild(contributors);
             preprintsList.appendChild(li);
         });
+    } else if (preprints.length === 0) {
+        preprintsList.innerHTML = '<li class="no-results">No preprints found for this date range.</li>';
     } else {
-        console.error('Preprints is not an array or is empty:', preprints);
+        preprintsList.innerHTML = '<li class="error">Error loading preprints. Please try again.</li>';
     }
 }
 
@@ -56,6 +63,18 @@ async function fetchPreprintDetails(id) {
 async function displayPreprintDetails() {
     const urlParams = new URLSearchParams(window.location.search);
     const preprintId = urlParams.get('id');
+    
+    if (!preprintId) {
+        document.getElementById('preprint-title').textContent = 'Error: No preprint ID provided';
+        return;
+    }
+    
+    // Show loading state
+    document.getElementById('preprint-title').textContent = 'Loading preprint details...';
+    document.getElementById('preprint-authors').textContent = 'Loading authors...';
+    document.getElementById('preprint-keywords').textContent = 'Loading keywords...';
+    document.getElementById('preprint-abstract').textContent = 'Loading abstract...';
+    
     const preprint = await fetchPreprintDetails(preprintId);
     
     if (preprint) {
@@ -79,6 +98,11 @@ async function displayPreprintDetails() {
         }
         
         document.getElementById('preprint-osf-link').href = `https://osf.io/preprints/psyarxiv/${preprintId}`;
+    } else {
+        document.getElementById('preprint-title').textContent = 'Error loading preprint';
+        document.getElementById('preprint-authors').textContent = 'Failed to load authors';
+        document.getElementById('preprint-keywords').textContent = 'Failed to load keywords';
+        document.getElementById('preprint-abstract').textContent = 'Failed to load abstract. Please try again later.';
     }
 }
 
