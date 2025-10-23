@@ -27,33 +27,8 @@ npm install
 node server.js
 ```
 
-4. **View Application**: Open `http://localhost:3000` in your browser.
+4. **View Application**: Open `http://localhost:PORT` in your browser (define PORT in .env).
 
 ## Production Deployment
 
-### Prerequisites
-
-1. Install PM2 globally:
-```sh
-sudo npm install -g pm2
-```
-
-### Deployment Instructions
-
-1. **Start Application**:
-```sh
-pm2 start server.js --name psyarxiv
-```
-
-2. **Configure Auto-start** (replace USERNAME with your system username):
-```sh
-sudo pm2 startup ubuntu -u USERNAME
-pm2 save
-```
-
-### PM2 Management Commands
-
-- View status: `pm2 status`
-- View logs: `pm2 logs`
-- Restart application: `pm2 restart psyarxiv`
-- Stop application: `pm2 stop psyarxiv`
+We use systemctl and Caddy.

@@ -16,7 +16,7 @@ app.get('/api/preprints', async (req, res) => {
             params: {
                 [`filter[${dateField}][gte]`]: startDate,
                 [`filter[${dateField}][lte]`]: endDate,
-                'page[size]': 100, // Adjust the number of results per page as needed
+                'page[size]': 20, // Adjust the number of results per page as needed
                 'sort': `-${dateField}`
             }
         });
