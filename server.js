@@ -11,16 +11,6 @@ const CONFIG = {
     MIN_EDIT_DAYS: 3
 };
 
-// Helper function to fetch contributors for a preprint
-async function fetchContributors(preprint) {
-    try {
-        const contributorsResponse = await axios.get(preprint.relationships.contributors.links.related.href);
-        return contributorsResponse.data.data;
-    } catch (error) {
-        console.error(`Error fetching contributors for preprint ${preprint.id}:`, error.message);
-        return [];
-    }
-}
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -40,6 +30,8 @@ app.get('/api/preprints', async (req, res) => {
             params: {
                 [`filter[${dateField}][gte]`]: startDate,
                 [`filter[${dateField}][lte]`]: endDate,
+                'filter[provider]': 'psyarxiv',
+                'embed': 'contributors',
                 'page[size]': CONFIG.PAGE_SIZE,
                 'sort': `-${dateField}`
             }
@@ -54,12 +46,15 @@ app.get('/api/preprints', async (req, res) => {
             });
         }
 
-        const preprintsWithContributors = await Promise.all(
-            preprints.map(async preprint => {
-                preprint.contributors = await fetchContributors(preprint);
-                return preprint;
-            })
-        );
+        // Extract embedded contributor data (no additional API calls needed!)
+        const preprintsWithContributors = preprints.map(preprint => {
+            if (preprint.embeds && preprint.embeds.contributors && preprint.embeds.contributors.data) {
+                preprint.contributors = preprint.embeds.contributors.data;
+            } else {
+                preprint.contributors = [];
+            }
+            return preprint;
+        });
 
         res.json({ data: preprintsWithContributors });
     } catch (error) {
@@ -77,10 +72,19 @@ app.get('/api/preprints/:id', async (req, res) => {
     }
     
     try {
-        const response = await axios.get(`https://api.osf.io/v2/preprints/${id}/`);
+        const response = await axios.get(`https://api.osf.io/v2/preprints/${id}/`, {
+            params: {
+                'embed': 'contributors'
+            }
+        });
         const preprint = response.data.data;
 
-        preprint.contributors = await fetchContributors(preprint);
+        // Extract embedded contributor data
+        if (preprint.embeds && preprint.embeds.contributors && preprint.embeds.contributors.data) {
+            preprint.contributors = preprint.embeds.contributors.data;
+        } else {
+            preprint.contributors = [];
+        }
 
         const primaryFileLink = preprint.relationships.primary_file.links.related.href;
         const primaryFileResponse = await axios.get(primaryFileLink);

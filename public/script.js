@@ -34,9 +34,19 @@ async function displayPreprints(startDate, endDate, filterType) {
             const dateField = filterType === 'date_modified' ? preprint.attributes.date_modified : preprint.attributes.date_created;
             const dateSubmitted = new Date(dateField).toLocaleDateString('en-CA');
             contributors.innerHTML = preprint.contributors.map(contributor => {
-                const fullName = contributor.embeds.users.data.attributes.given_name + ' ' + contributor.embeds.users.data.attributes.family_name;
-                const profileUrl = `https://osf.io/${contributor.embeds.users.data.id}/`;
-                return `<a href="${profileUrl}" target="_blank">${fullName}</a>`;
+                // Handle embedded contributor data structure
+                const userData = contributor.embeds && contributor.embeds.users && contributor.embeds.users.data 
+                    ? contributor.embeds.users.data 
+                    : null;
+                
+                if (userData) {
+                    const fullName = userData.attributes.given_name + ' ' + userData.attributes.family_name;
+                    const profileUrl = `https://osf.io/${userData.id}/`;
+                    return `<a href="${profileUrl}" target="_blank">${fullName}</a>`;
+                } else {
+                    // Fallback for missing data
+                    return contributor.attributes?.unregistered_contributor || 'Unknown Author';
+                }
             }).join(', ');
             li.appendChild(title);
             li.appendChild(contributors);
@@ -81,9 +91,19 @@ async function displayPreprintDetails() {
         document.getElementById('preprint-title').textContent = preprint.attributes.title;
         
         const authors = preprint.contributors.map(contributor => {
-            const fullName = contributor.embeds.users.data.attributes.given_name + ' ' + contributor.embeds.users.data.attributes.family_name;
-            const profileUrl = `https://osf.io/${contributor.embeds.users.data.id}/`;
-            return `<a href="${profileUrl}" target="_blank">${fullName}</a>`;
+            // Handle embedded contributor data structure
+            const userData = contributor.embeds && contributor.embeds.users && contributor.embeds.users.data 
+                ? contributor.embeds.users.data 
+                : null;
+            
+            if (userData) {
+                const fullName = userData.attributes.given_name + ' ' + userData.attributes.family_name;
+                const profileUrl = `https://osf.io/${userData.id}/`;
+                return `<a href="${profileUrl}" target="_blank">${fullName}</a>`;
+            } else {
+                // Fallback for missing data
+                return contributor.attributes?.unregistered_contributor || 'Unknown Author';
+            }
         }).join(', ');
         document.getElementById('preprint-authors').innerHTML = 'Authors: ' + authors;
         
