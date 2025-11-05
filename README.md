@@ -1,6 +1,10 @@
 # PsyArXiv UI
 
-Experimental alternative UI to [PsyArXiv](https://osf.io/preprints/psyarxiv).
+Experimental alternative UI to [PsyArXiv](https://osf.io/preprints/psyarxiv) that aims to be
+
+- Fast (back- and frontend)
+- Information-dense (good text-based UI)
+- Informative (just the preprint metadata needed)
 
 ## Local Development Setup
 

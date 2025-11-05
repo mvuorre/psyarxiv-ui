@@ -9,25 +9,20 @@
 <body>
     <div class="navbar">
         <a href="index.html" class="navbar-brand">PsyArXiv Zero</a>
-        <div class="navbar-filters">
-            <div class="navbar-filter-group">
-                <span>[New:</span>
-                <a href="#" id="today-new">Today</a> |
-                <a href="#" id="last3days-new">3 Days</a> |
-                <a href="#" id="last7days-new">7 Days</a>]
-            </div>
-            <div class="navbar-filter-group">
-                <span>[Edited:</span>
-                <a href="#" id="today-edited">Today</a> |
-                <a href="#" id="last3days-edited">3 Days</a> |
-                <a href="#" id="last7days-edited">7 Days</a>]
-            </div>
-        </div>
         <a href="about.html" class="navbar-about">About</a>
     </div>
     <div class="container">
-        <div id="date-range-text" class="date-range-text"></div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search all preprints (press Enter)..." />
+            <button id="clear-search">×</button>
+        </div>
+        <div id="status-text" class="status-text"></div>
         <ul id="preprints-list"></ul>
+        <div class="pagination">
+            <button id="prev-page" disabled>← Previous</button>
+            <span id="page-info">Page 1</span>
+            <button id="next-page">Next →</button>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
